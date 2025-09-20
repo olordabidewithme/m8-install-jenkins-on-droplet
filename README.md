@@ -18,11 +18,12 @@ Project Description:
 		- "cat ~/.ssh/id_rsa.pub"
     		- Paste the public key
 	- Name the droplet as "jenkins-server"
-	- Create a new firewall and configure inbound rule to allow access to
+	- Create a new firewall and configure inbound rules
 		- name : jenkins-firewall 
-    		- port 22  , ssh port from my computer only
-    		- port 8080, default HTTP port for jenkins serving web requests
-	- Apply the newly created firewall to created droplet.
+    		- port 22
+    		- port 8080
+		- port 5000
+	- Apply the newly created firewall to created droplet, jenkins-server.
 	- Finalize and create the Droplet. Note its public IP address.
 
 2. Initial Server Setup & Security Hardening
@@ -44,3 +45,16 @@ docker run -p 8080:8080 -p 50000:50000 -d \
 		- cat /var/jenkins_home/secrets/initialAdminPassword
 	- Input the password and install suggested pulgins
 	- Finally prompte to create first admin user
+
+3. Footnote
+	- Port 22
+		- ssh port
+	- Port 8000,
+		- default HTTP port for jenkins serving web requests
+	- Port 5000, 
+		- The port 5000 is commonly mapped to the Jenkins container to facilitate communication between the Jenkins controller (master) and inbound agents (e.g., build agents or worker nodes).
+	- Volume, to persist data even container is destroyed.
+		- Configuration data
+		- Jenkins Jobs
+		- Users & Permissions
+		- Plugins
